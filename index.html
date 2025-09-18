@@ -1,103 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Healthy Recipe App</title>
-<style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background-color: #f0f4f7;
-        color: #333;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        text-align: center;
-        cursor: pointer;
-    }
-    .container {
-        max-width: 800px;
-        padding: 40px;
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        width: 100%;
-    }
-    h1 {
-        color: #007bff;
-        font-size: 2.5em;
-        margin-bottom: 20px;
-    }
-    h2 {
-        color: #555;
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
-    p {
-        font-size: 1.5em;
-        line-height: 1.6;
-    }
-    ul {
-        list-style-type: none;
-        padding: 0;
-        font-size: 1.2em;
-        text-align: left;
-        margin-top: 30px;
-    }
-    li {
-        margin-bottom: 8px;
-    }
-    .initial-view, .recipe-view {
-        display: none;
-    }
-    .button {
-        background: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 12px 24px;
-        font-size: 1em;
-        cursor: pointer;
-        margin: 10px 0;
-        transition: background 0.2s;
-    }
-    .button:hover {
-        background: #0056b3;
-    }
-    input, textarea {
-        width: 100%;
-        padding: 8px;
-        margin: 6px 0 12px 0;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 1em;
-        box-sizing: border-box;
-    }
-    .recipe-list {
-        margin-bottom: 20px;
-        text-align: left;
-    }
-    .recipe-list button {
-        width: 100%;
-        margin-bottom: 8px;
-        text-align: left;
-    }
-    @media (max-width: 600px) {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Healthy Recipe App</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f0f4f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            cursor: pointer;
+        }
         .container {
-            padding: 10px;
+            max-width: 800px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
-        h1, h2 {
+        h1 {
+            color: #007bff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #555;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        p {
             font-size: 1.5em;
+            line-height: 1.6;
         }
-        p, ul {
+        ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 1.2em;
+            text-align: left;
+            margin-top: 30px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .initial-view, .recipe-view {
+            display: none;
+        }
+        .button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
             font-size: 1em;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background 0.2s;
         }
-    }
-</style>
+        .button:hover {
+            background: #0056b3;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 12px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .recipe-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .step-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .recipe-list {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .recipe-list button {
+            width: 100%;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            h1, h2 {
+                font-size: 1.5em;
+            }
+            p, ul {
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -111,27 +125,39 @@
 
     <div id="add-recipe-screen" class="initial-view" style="display: none;">
         <h2>Add New Recipe</h2>
-        <input id="new-recipe-name" placeholder="Recipe Name" />
-        <textarea id="new-recipe-ingredients" rows="4" placeholder="Ingredients (one per line)"></textarea>
-        <textarea id="new-recipe-steps" rows="4" placeholder="Steps (one per line)"></textarea>
+        <input id="new-recipe-name" placeholder="Recipe Name"/>
+        <input id="new-recipe-image" placeholder="Recipe Image URL"/>
+        <h3>Steps</h3>
+        <div id="new-steps-container">
+            <!-- Dynamic steps will be added here -->
+        </div>
+        <button class="button" onclick="addStepInput()">Add Step</button>
+        <br>
+        <textarea id="new-recipe-ingredients" rows="4"
+                  placeholder="Ingredients (one per line)"></textarea>
         <button class="button" onclick="addRecipe()">Save Recipe</button>
         <button class="button" onclick="backToHome()">Cancel</button>
     </div>
 
     <div id="recipe-screen" class="recipe-view">
         <h2 id="recipe-title"></h2>
+        <img id="recipe-image" class="recipe-image" src="" alt="Recipe Image">
         <div id="ingredients-list">
             <h3>Ingredients</h3>
             <ul id="ingredients"></ul>
             <textarea id="edit-ingredients" style="display:none;" rows="4"></textarea>
         </div>
         <p id="recipe-step"></p>
+        <img id="step-image" class="step-image" src="" alt="Step Image" style="display: none;">
         <textarea id="edit-steps" style="display:none;" rows="4"></textarea>
         <div>
             <button class="button" id="next-step-btn" onclick="nextStep()">Next Step</button>
             <button class="button" id="edit-btn" onclick="toggleEditMode()">Edit Recipe</button>
+            <button class="button" id="delete-btn" onclick="deleteRecipe(currentRecipeIndex, true)">Delete Recipe</button>
             <button class="button" onclick="backToHome()">Back</button>
-            <button class="button" id="save-edit-btn" style="display:none;" onclick="saveEdits()">Save Changes</button>
+            <button class="button" id="save-edit-btn" style="display:none;" onclick="saveEdits()">
+                Save Changes
+            </button>
         </div>
     </div>
 </div>
@@ -140,6 +166,7 @@
     let recipes = [
         {
             name: "Healthy Kale Salad",
+            image: "https://images.unsplash.com/photo-1551248429-4097c682f676?q=80&w=2070&auto=format&fit=crop",
             ingredients: [
                 "1 bunch of kale, chopped",
                 "1 lemon, juiced",
@@ -149,11 +176,11 @@
                 "Salt and pepper to taste"
             ],
             steps: [
-                "Wash and thoroughly dry the kale. Remove any thick stems and chop the leaves into small, bite-sized pieces.",
-                "In a large bowl, drizzle the kale with olive oil and the juice of one lemon. Add a pinch of salt and pepper.",
-                "Using your hands, 'massage' the kale for 2-3 minutes. This breaks down the tough fibers and makes it more tender.",
-                "Add the toasted almonds and dried cranberries to the bowl. Toss everything together until well combined.",
-                "Serve immediately and enjoy your fresh, healthy salad!"
+                { text: "Wash and thoroughly dry the kale. Remove any thick stems and chop the leaves into small, bite-sized pieces.", image: "https://images.unsplash.com/photo-1627907222143-2352ff943588?q=80&w=2070&auto=format&fit=crop" },
+                { text: "In a large bowl, drizzle the kale with olive oil and the juice of one lemon. Add a pinch of salt and pepper.", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1887&auto=format&fit=crop" },
+                { text: "Using your hands, 'massage' the kale for 2-3 minutes. This breaks down the tough fibers and makes it more tender.", image: "https://images.unsplash.com/photo-1604222819269-b22937523a49?q=80&w=1887&auto=format&fit=crop" },
+                { text: "Add the toasted almonds and dried cranberries to the bowl. Toss everything together until well combined.", image: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=1964&auto=format&fit=crop" },
+                { text: "Serve immediately and enjoy your fresh, healthy salad!", image: "https://images.unsplash.com/photo-1505253716362-af78f5d115de?q=80&w=2070&auto=format&fit=crop" }
             ]
         }
     ];
@@ -166,23 +193,55 @@
     const addRecipeScreen = document.getElementById('add-recipe-screen');
     const recipeScreen = document.getElementById('recipe-screen');
     const recipeTitle = document.getElementById('recipe-title');
+    const recipeImage = document.getElementById('recipe-image');
     const ingredientsList = document.getElementById('ingredients');
     const recipeStep = document.getElementById('recipe-step');
+    const stepImage = document.getElementById('step-image');
     const recipeListDiv = document.getElementById('recipe-list');
     const editIngredients = document.getElementById('edit-ingredients');
     const editSteps = document.getElementById('edit-steps');
     const nextStepBtn = document.getElementById('next-step-btn');
     const editBtn = document.getElementById('edit-btn');
     const saveEditBtn = document.getElementById('save-edit-btn');
+    const deleteBtn = document.getElementById('delete-btn');
+
+    function deleteRecipe(idx, fromDetails = false) {
+        if (confirm(`Are you sure you want to delete "${recipes[idx].name}"?`)) {
+            recipes.splice(idx, 1);
+            if (fromDetails) {
+                backToHome();
+            } else {
+                showRecipeList();
+            }
+        }
+    }
 
     function showRecipeList() {
         recipeListDiv.innerHTML = '';
         recipes.forEach((r, idx) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.style.display = 'flex';
+            itemDiv.style.marginBottom = '8px';
+
             const btn = document.createElement('button');
             btn.className = 'button';
             btn.textContent = r.name;
             btn.onclick = () => startRecipe(idx);
-            recipeListDiv.appendChild(btn);
+            btn.style.flexGrow = 1;
+            btn.style.marginRight = '8px';
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.className = 'button';
+            deleteBtn.style.background = '#dc3545';
+            deleteBtn.onclick = (e) => {
+                e.stopPropagation();
+                deleteRecipe(idx);
+            };
+
+            itemDiv.appendChild(btn);
+            itemDiv.appendChild(deleteBtn);
+            recipeListDiv.appendChild(itemDiv);
         });
     }
 
@@ -190,19 +249,44 @@
         initialScreen.style.display = 'none';
         addRecipeScreen.style.display = 'block';
         document.getElementById('new-recipe-name').value = '';
+        document.getElementById('new-recipe-image').value = '';
         document.getElementById('new-recipe-ingredients').value = '';
-        document.getElementById('new-recipe-steps').value = '';
+        const stepsContainer = document.getElementById('new-steps-container');
+        stepsContainer.innerHTML = '';
+        addStepInput(); // Add first step input fields
+    }
+
+    function addStepInput() {
+        const container = document.getElementById('new-steps-container');
+        const stepDiv = document.createElement('div');
+        stepDiv.style.marginBottom = '10px';
+        stepDiv.innerHTML = `
+            <input class="new-step-text" placeholder="Step description">
+            <input class="new-step-image" placeholder="Step Image URL">
+        `;
+        container.appendChild(stepDiv);
     }
 
     function addRecipe() {
         const name = document.getElementById('new-recipe-name').value.trim();
+        const image = document.getElementById('new-recipe-image').value.trim();
         const ingredients = document.getElementById('new-recipe-ingredients').value.split('\n').map(i => i.trim()).filter(i => i);
-        const steps = document.getElementById('new-recipe-steps').value.split('\n').map(s => s.trim()).filter(s => s);
+        
+        const steps = [];
+        const stepInputs = document.querySelectorAll('#new-steps-container > div');
+        stepInputs.forEach(div => {
+            const text = div.querySelector('.new-step-text').value.trim();
+            const image = div.querySelector('.new-step-image').value.trim();
+            if (text) {
+                steps.push({ text, image });
+            }
+        });
+
         if (!name || ingredients.length === 0 || steps.length === 0) {
-            alert('Please fill all fields.');
+            alert('Please fill recipe name, at least one ingredient, and at least one step.');
             return;
         }
-        recipes.push({ name, ingredients, steps });
+        recipes.push({ name, image, ingredients, steps });
         backToHome();
         showRecipeList();
     }
@@ -222,10 +306,14 @@
         addRecipeScreen.style.display = 'none';
         recipeScreen.style.display = 'block';
         recipeTitle.innerHTML = recipes[idx].name;
+        recipeImage.src = recipes[idx].image || '';
+        recipeImage.style.display = recipes[idx].image ? 'block' : 'none';
         displayIngredients();
         recipeStep.innerHTML = "Tap 'Next Step' to begin!";
+        stepImage.style.display = 'none';
         nextStepBtn.style.display = '';
         editBtn.style.display = '';
+        deleteBtn.style.display = '';
         saveEditBtn.style.display = 'none';
         editIngredients.style.display = 'none';
         editSteps.style.display = 'none';
@@ -234,15 +322,21 @@
     function nextStep() {
         if (currentRecipeIndex === null) return;
         const recipe = recipes[currentRecipeIndex];
-        if (currentStepIndex === -1) {
+        if (currentStepIndex < recipe.steps.length - 1) {
             document.getElementById('ingredients-list').style.display = 'none';
+            recipeImage.style.display = 'none';
             currentStepIndex++;
-            recipeStep.innerHTML = recipe.steps[currentStepIndex];
-        } else if (currentStepIndex < recipe.steps.length - 1) {
-            currentStepIndex++;
-            recipeStep.innerHTML = recipe.steps[currentStepIndex];
+            const step = recipe.steps[currentStepIndex];
+            recipeStep.innerHTML = step.text;
+            if (step.image) {
+                stepImage.src = step.image;
+                stepImage.style.display = 'block';
+            } else {
+                stepImage.style.display = 'none';
+            }
         } else {
             recipeStep.innerHTML = "Recipe complete! Enjoy your meal!";
+            stepImage.style.display = 'none';
             nextStepBtn.style.display = 'none';
         }
     }
@@ -262,20 +356,29 @@
         editMode = true;
         nextStepBtn.style.display = 'none';
         editBtn.style.display = 'none';
+        deleteBtn.style.display = 'none';
         saveEditBtn.style.display = '';
         // Show editable fields
         editIngredients.style.display = '';
         editSteps.style.display = '';
         // Fill with current values
         editIngredients.value = recipes[currentRecipeIndex].ingredients.join('\n');
-        editSteps.value = recipes[currentRecipeIndex].steps.join('\n');
+        editSteps.value = recipes[currentRecipeIndex].steps.map(s => `${s.text}|${s.image || ''}`).join('\n');
         ingredientsList.style.display = 'none';
         recipeStep.style.display = 'none';
+        stepImage.style.display = 'none';
+        recipeImage.style.display = 'none';
     }
 
     function saveEdits() {
         const newIngredients = editIngredients.value.split('\n').map(i => i.trim()).filter(i => i);
-        const newSteps = editSteps.value.split('\n').map(s => s.trim()).filter(s => s);
+        const newSteps = editSteps.value.split('\n').map(s => {
+            const parts = s.split('|');
+            const text = parts[0].trim();
+            const image = (parts[1] || '').trim();
+            return text ? { text, image } : null;
+        }).filter(s => s);
+
         if (newIngredients.length === 0 || newSteps.length === 0) {
             alert('Ingredients and steps cannot be empty.');
             return;
@@ -288,9 +391,11 @@
         editSteps.style.display = 'none';
         ingredientsList.style.display = '';
         recipeStep.style.display = '';
+        recipeImage.style.display = recipes[currentRecipeIndex].image ? 'block' : 'none';
         saveEditBtn.style.display = 'none';
         nextStepBtn.style.display = '';
         editBtn.style.display = '';
+        deleteBtn.style.display = '';
         currentStepIndex = -1;
         displayIngredients();
         recipeStep.innerHTML = "Tap 'Next Step' to begin!";
@@ -301,5 +406,6 @@
 </script>
 
 </body>
-
 </html>
+</html>
+
